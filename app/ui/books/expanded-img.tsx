@@ -1,0 +1,1 @@
+// large image component when user clicks cover image on each individual book page

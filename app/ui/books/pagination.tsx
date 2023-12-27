@@ -1,0 +1,1 @@
+// render page number(s), left/right arrows, perform pagination logic
