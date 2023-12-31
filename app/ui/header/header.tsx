@@ -8,10 +8,18 @@ import { Grid, Typography } from "@mui/material";
 
 //Components
 import NavLinks from "./nav-links";
+import { Search } from "./search";
 
 export const Header = () => {
     return (
-        <Grid container>
+        <Grid
+            container
+            justifyContent='space-between'
+            alignItems='center'
+            sx={ {
+                padding: '1rem'
+            } }
+        >
             <Grid item>
                 {/* Image */}
                 Image Placeholder
@@ -35,8 +43,12 @@ export const Header = () => {
             <Grid container width='fit-content'>
                 <NavLinks/>
             </Grid>
-            <Grid item>
-                {/* Search */}
+            <Grid
+                item
+                display='flex'
+                alignItems='center'
+            >
+                <Search/>
             </Grid>
         </Grid>
     );

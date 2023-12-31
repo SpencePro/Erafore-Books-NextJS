@@ -1,4 +1,3 @@
-// Render slideshow.tsx
 'use client'
 import { Grid, Slide, Typography } from "@mui/material"
 import clsx from "clsx"

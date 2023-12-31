@@ -1,4 +1,3 @@
-// Render Ian's portrait + website description/intro
 'use client'
 import Image from "next/image";
 import { Grid, Typography } from "@mui/material"
