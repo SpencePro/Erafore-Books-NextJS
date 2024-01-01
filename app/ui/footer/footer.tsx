@@ -16,7 +16,7 @@ export const Footer = () => {
                     Erafore Books, LLC &copy;2021
                 </Typography>
                 <Typography variant="body1">
-                    Created by Ian Rodgers. All rights reserved.
+                    Created by Ian Rodgers. Website by Spencer Rodgers. All rights reserved.
                 </Typography>
                 <Typography variant="body1">
                     <a
