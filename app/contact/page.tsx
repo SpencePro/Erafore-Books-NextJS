@@ -17,13 +17,16 @@ export default function Page () {
         try {
             await navigator.clipboard.writeText( 'eraforedevllc@gmail.com' );
             setCopiedEmail( true );
-            setTimeout( () => {
-                setCopiedEmail( false );
-            }, 3000 );
         } catch ( e ) {
             console.error( `Failed to copy text - ${ e }` );
         }
     };
+
+    if ( copiedEmail ) {
+        setTimeout( () => {
+            setCopiedEmail( false );
+        }, 3000 );
+    }
 
     return (
         <Grid
