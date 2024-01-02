@@ -3,6 +3,9 @@
 // collapse when scrolling (hide title-img, remove text from buttons (icon only) + tooltips, keep search)
 'use client';
 
+import Image from "next/image";
+import Link from "next/link";
+
 // MUI
 import { Grid, Typography } from "@mui/material";
 
@@ -21,8 +24,14 @@ export const Header = () => {
             } }
         >
             <Grid item>
-                {/* Image */}
-                Image Placeholder
+                <Link href='/'>
+                    <Image
+                        src='/home/site-logo-large.png'
+                        height={ 120 }
+                        width={ 120 }
+                        alt='Site Image'
+                    />
+                </Link>
             </Grid>
             <Grid
                 container

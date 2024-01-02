@@ -2,6 +2,8 @@
 // Loop through images (fade in/out) OR carousel
 'use client'
 import { useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
 import {
     Grid
     , Typography
@@ -13,10 +15,10 @@ export const Slideshow = () => {
 
     // TODO: replace with book cover images
     const images = [
-        'image1'
-        , 'image2'
-        , 'image3'
-        , 'image4'
+        'ChroniclesofaRoyalPetAPrincessandanOoze(RoyalOozeChroniclesBook1)'
+        , 'FictionAsStrangeAsRealLife'
+        , 'GodOfTheFreshman(TheHumanExperienceBook1)'
+        , 'TheLongRoadofAdventureFlowersontheWayside(Book1)'
     ];
 
     setTimeout( () => {
@@ -26,9 +28,17 @@ export const Slideshow = () => {
     // TODO: Replace text with image + link + tooltip
     return (
         <Grid item>
-            <Typography variant="body1">
+            <Link href={ '/' }>
+                <Image
+                    src={ `/books/${ images[ currentImg ] }.jpg` }
+                    height={ 200 }
+                    width={ 200 }
+                    alt={ images[ currentImg ] }
+                />
+            </Link>
+            {/* <Typography variant="body1">
                 { images[ currentImg ] }
-            </Typography>
+            </Typography> */}
         </Grid>
     );
 };

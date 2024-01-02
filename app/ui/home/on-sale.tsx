@@ -7,16 +7,20 @@ import {
     Grid
     , Typography
 } from "@mui/material"
+import bgImg from '../../../public/home/manuscript-3914930_1920.jpg';
 
 // TODO: Call BE to get book(s) that are on sale
-// TODO: Render loading skeleton while calling BE
+// TODO: Scroll down on bg image
 
 export const OnSale = () => {
     return (
-        <Grid container>
-            <Grid item>
-                {/* Background Image */}
-            </Grid>
+        <Grid
+            container
+            style={{
+                backgroundImage: `url(${ bgImg.src })`
+                , width: '100%'
+            }}
+        >
             <Grid
                 container
                 flexDirection='column'
