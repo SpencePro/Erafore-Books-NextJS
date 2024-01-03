@@ -2,6 +2,8 @@
 // form -> Formik?
 'use client'
 
+import { useState } from "react";
+
 // MUI
 import {
     Select
@@ -13,17 +15,34 @@ import {
 
 // Utils
 
-export const Filters = () => {
-    const handleChangeSeries = () => {
+// Types
+import { QueryResult } from "@vercel/postgres";
+import { Series, World } from "@/app/types/types";
 
+interface Props {
+    series: QueryResult<Series>;
+    worlds: QueryResult<World>;
+}
+
+export const Filters = ( { series, worlds }: Props ) => {
+    const [ selectedSeries, setSelectedSeries ] = useState<number>( 0 );
+    const [ selectedWorld, setSelectedWorld ] = useState<number>( 0 );
+
+    const handleSelectSeries = ( value: string | number ) => {
+        console.log( { value } );
+        setSelectedSeries( Number( value ) );
     };
 
-    const handleChangeWorld = () => {
-
+    const handleSelectWorld = ( value: string | number ) => {
+        console.log( { value } );
+        setSelectedWorld( Number( value ) );
     };
 
     const submitFilter = () => {
-
+        console.log( {
+            selectedSeries
+            , selectedWorld
+        } );
     };
 
     return (
@@ -48,16 +67,25 @@ export const Filters = () => {
                 <Grid item>
                     <Select
                         id='select-series-dropdown'
-                        value={ '' }
+                        value={ selectedSeries }
                         label=''
-                        onChange={ handleChangeSeries }
+                        onChange={ e => handleSelectSeries( e.target.value ) }
                         style={{
                             height: '2rem'
                             , width: '8rem'
                         }}
                     >
                         {
-                            
+                            series.rows.map( row => {
+                                return (
+                                    <MenuItem
+                                        key={ row.id }
+                                        value={ row.id }
+                                    >
+                                        { row.name }
+                                    </MenuItem>
+                                )
+                            } )
                         }
                     </Select>
                 </Grid>
@@ -69,16 +97,25 @@ export const Filters = () => {
                 <Grid item>
                     <Select
                         id='select-world-dropdown'
-                        value={ '' }
+                        value={ selectedWorld }
                         label=''
-                        onChange={ handleChangeWorld }
+                        onChange={ e => handleSelectWorld( e.target.value ) }
                         style={{
                             height: '2rem'
                             , width: '8rem'
                         }}
                     >
                         {
-                            
+                            worlds.rows.map( world => {
+                                return (
+                                    <MenuItem
+                                        key={ world.id }
+                                        value={ world.id }
+                                    >
+                                        { world.name }
+                                    </MenuItem>
+                                )
+                            } )
                         }
                     </Select>
                 </Grid>

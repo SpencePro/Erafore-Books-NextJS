@@ -36,7 +36,7 @@ export async function fetchOnSaleBook() {
 export async function fetchAllBooks() {
     noStore(); // maybe remove this one?
     try {
-        const data = await sql<Book[]>`
+        const data = await sql<Book>`
             SELECT * FROM books
             ORDER BY publish_date ASC
         `;
@@ -50,7 +50,7 @@ export async function fetchAllBooks() {
 export async function fetchFilteredBooks( worldId?: number, seriesId?: number ) {
     noStore();
     try {
-        const data = await sql<Book[]>`
+        const data = await sql<Book>`
             SELECT * FROM books
             WHERE ${
                 worldId && seriesId
@@ -87,7 +87,7 @@ export async function fetchSingleBookById( id: number ) {
 export async function fetchWorlds() {
     noStore();
     try {
-        const data = await sql<World[]>`
+        const data = await sql<World>`
             SELECT * FROM worlds
         `;
         return data;
@@ -100,7 +100,7 @@ export async function fetchWorlds() {
 export async function fetchSeries() {
     noStore();
     try {
-        const data = await sql<Series[]>`
+        const data = await sql<Series>`
             SELECT * FROM series
         `;
         return data;
