@@ -1,5 +1,3 @@
-// Render slideshow of images + changing text
-// Loop through images (fade in/out) OR carousel
 'use client'
 import { useState } from "react";
 import Image from "next/image";
@@ -13,32 +11,27 @@ export const Slideshow = () => {
 
     const [ currentImg, setCurrentImg ] = useState<number>( 0 );
 
-    // TODO: replace with book cover images
     const images = [
-        'ChroniclesofaRoyalPetAPrincessandanOoze(RoyalOozeChroniclesBook1)'
-        , 'FictionAsStrangeAsRealLife'
-        , 'GodOfTheFreshman(TheHumanExperienceBook1)'
-        , 'TheLongRoadofAdventureFlowersontheWayside(Book1)'
+        { id: 1, image: 'ChroniclesofaRoyalPetAPrincessandanOoze(RoyalOozeChroniclesBook1)' }
+        , { id: 24, image: 'FictionAsStrangeAsRealLife' }
+        , { id: 36, image: 'GodOfTheFreshman(TheHumanExperienceBook1)' }
+        , { id: 8, image: 'TheLongRoadofAdventureFlowersontheWayside(Book1)' }
     ];
 
     setTimeout( () => {
         setCurrentImg( currentImg === images.length - 1 ? 0 : ( currentImg + 1 ) );
     }, 3000 )
 
-    // TODO: Replace text with image + link + tooltip
     return (
         <Grid item>
-            <Link href={ '/' }>
+            <Link href={ `/books/${ images[ currentImg ].id }` }>
                 <Image
-                    src={ `/books/${ images[ currentImg ] }.jpg` }
+                    src={ `/books/${ images[ currentImg ].image }.jpg` }
                     height={ 200 }
                     width={ 200 }
-                    alt={ images[ currentImg ] }
+                    alt={ images[ currentImg ].image }
                 />
             </Link>
-            {/* <Typography variant="body1">
-                { images[ currentImg ] }
-            </Typography> */}
         </Grid>
     );
 };

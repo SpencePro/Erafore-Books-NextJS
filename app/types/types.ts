@@ -3,15 +3,15 @@
 export interface Book {
     id: number
     , title: string
-    , coverArtist: string
-    , coverImage: string
+    , cover_artist: string
+    , cover_image: string
     , series: number
     , world: number
-    , amazonLink: string
-    , publishDate: Date | string
+    , amazon_link: string
+    , publish_date: Date | string
     , synopsis: string
-    , onSale: boolean
-    , audioBook: boolean
+    , on_sale: boolean
+    , audio_book: boolean
 }
 
 export interface World {
@@ -25,5 +25,5 @@ export interface Series {
     , name: string
     , description: string
     , world: number
-    , dateStarted: Date | string
+    , date_started: Date | string
 }

@@ -1,19 +1,23 @@
 // Render banner image + link to latest release
 // Loading skeleton
-'use client'
+// 'use client'
 
 import Image from "next/image";
+import Link from "next/link";
 import {
     Grid
     , Typography
 } from "@mui/material"
 import bgImg from '../../../public/home/document-1729019_1920-edit.jpg';
 
-// TODO: call BE to get latest book
+// Utils
+import { fetchLatestBook } from "@/app/utils/data";
+
 // TODO: Render loading skeleton while calling BE
 // TODO: Scroll down on bg image
 
-export const Latest = () => {
+export const Latest = async () => {
+    const latestBook = await fetchLatestBook();
     return (
         <Grid
             container
@@ -22,9 +26,6 @@ export const Latest = () => {
                 , width: '100%'
             }}
         >
-            <Grid item>
-                {/* Background Image */}
-            </Grid>
             <Grid
                 container
                 flexDirection='column'
@@ -36,12 +37,27 @@ export const Latest = () => {
                         The Latest Release
                     </Typography>
                 </Grid>
-                <Grid item>
-                    {/* Book cover */}
+                <Grid
+                    container
+                    justifyContent='center'
+                >
+                    <Grid
+                        item
+                        width='fit-content'
+                    >
+                        <Link href={ `/books/${ latestBook.rows[ 0 ].id }` }>
+                            <Image
+                                src={ `/books/${ latestBook.rows[ 0 ].cover_image }.jpg` }
+                                height={ 200 }
+                                width={ 200 }
+                                alt={ `Cover image of ${ latestBook.rows[ 0 ].title }`}
+                            />
+                        </Link> 
+                    </Grid>
                 </Grid>
                 <Grid item>
-                <Typography variant="body1">
-                        Book title
+                    <Typography variant="body1">
+                        { latestBook.rows[ 0 ].title }
                     </Typography>
                 </Grid>
             </Grid>

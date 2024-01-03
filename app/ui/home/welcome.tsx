@@ -1,5 +1,5 @@
-'use client'
-import { Grid, Slide, Typography } from "@mui/material"
+// 'use client'
+import { Grid, Typography } from "@mui/material"
 import clsx from "clsx"
 import { Slideshow } from "./slideshow";
 

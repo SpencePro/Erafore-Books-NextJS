@@ -1,4 +1,4 @@
-'use client'
+// 'use client'
 import Image from "next/image";
 import { Grid, Typography } from "@mui/material"
 import { AuthorImageStyle } from "./styles";
