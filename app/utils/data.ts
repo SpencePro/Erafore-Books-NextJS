@@ -33,12 +33,27 @@ export async function fetchOnSaleBook() {
     }
 }
 
-export async function fetchAllBooks() {
-    noStore(); // maybe remove this one?
+export async function fetchBooks( offset?: number ) {
+    noStore();
     try {
         const data = await sql<Book>`
             SELECT * FROM books
             ORDER BY publish_date ASC
+            LIMIT 10
+        `;
+        // ${ offset ? `OFFSET ${ offset }` : ''}
+        return data;
+    } catch ( e ) {
+        console.error( e );
+        throw e;
+    }
+}
+
+export async function fetchBooksCount() {
+    noStore();
+    try {
+        const data = await sql<Book>`
+            SELECT COUNT(*) FROM books
         `;
         return data;
     } catch ( e ) {

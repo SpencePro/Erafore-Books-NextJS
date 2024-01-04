@@ -2,28 +2,34 @@
 // Render filters + description
 // Render array of books (card components, mapped)
 // Render pagination
+// 'use client'
 import Image from "next/image";
 import Link from "next/link";
 
 // MUI
-import { Grid, Typography, Paper } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 
 // Components
 import { Filters } from "../ui/books/filters";
+import { Pagination } from "../ui/books/pagination";
+import { BooksList } from "../ui/books/books-list";
 
 // Utils
-import { fetchAllBooks, fetchWorlds, fetchSeries } from "../utils/data";
+import { fetchBooks, fetchWorlds, fetchSeries, fetchBooksCount } from "../utils/data";
 
 // Types
 import { Book } from "../types/types";
 
-// Styles
-import { CardContents, BookCard } from "../ui/books/styles";
-
 export default async function Page () {
+    // let offset = 0;
     const worlds = await fetchWorlds();
     const series = await fetchSeries();
-    const books = await fetchAllBooks();
+    const books = await fetchBooks();
+    const booksCount = await fetchBooksCount();
+
+    // const getBooks = async ( offset?: number ) => {
+    //     const currentBooks = fetchBooks( offset );
+    // };
 
     return (
         <Grid
@@ -45,119 +51,18 @@ export default async function Page () {
                     worlds={ worlds }
                 />
             </Grid>
-            <Grid
-                container
-                spacing={ 2 }
-            >
-                {
-                    books.rows.map( ( book: Book ) => {
-                        return (
-                            <Grid
-                                item
-                                key={ book.id }
-                            >
-                                <Paper
-                                    variant="elevation"
-                                    square={ false }
-                                    sx={ BookCard }
-                                >
-                                    <Grid
-                                        container
-                                        flexWrap='nowrap'
-                                    >
-                                        <Grid item>
-                                            <Link href={ `/books/${ book.id }` }>
-                                                <Image
-                                                    src={ `/books/${ book.cover_image }.jpg` }
-                                                    height={ 200 }
-                                                    width={ 200 }
-                                                    alt={ `Cover image of ${ book.title }` }
-                                                />
-                                            </Link>
-                                        </Grid>
-                                        <Grid
-                                            container
-                                            flexDirection='column'
-                                            sx={ CardContents }
-                                        >
-                                            <Grid item>
-                                                <Link href={ `/books/${ book.id }` }>
-                                                    <Typography variant="body1">
-                                                        { book.title }
-                                                    </Typography>
-                                                </Link>
-                                            </Grid>
-                                            <Grid item>
-                                                <Typography variant='body1'>
-                                                    { `Published ${ book.publish_date }`}
-                                                </Typography>
-                                            </Grid>
-                                            <Grid container>
-                                                <Grid item>
-                                                    <Typography
-                                                        variant='body1'
-                                                        sx={ {
-                                                            fontWeight: 'bold'
-                                                        } }
-                                                    >
-                                                        Series:
-                                                    </Typography>
-                                                </Grid>
-                                                <Grid item>
-                                                    <Link href={ `/books/?series=${ book.series }` }>
-                                                        <Typography variant='body1'>
-                                                            { series?.rows.find( row => row.id === book.series )?.name }
-                                                        </Typography>
-                                                    </Link>
-                                                </Grid>
-                                            </Grid>
-                                            <Grid container>
-                                                <Grid item>
-                                                    <Typography
-                                                        variant='body1'
-                                                        sx={ {
-                                                            fontWeight: 'bold'
-                                                        } }
-                                                    >
-                                                        World:
-                                                    </Typography>
-                                                </Grid>
-                                                <Grid item>
-                                                    <Link href={ `/books/?world=${ book.world }` }>
-                                                        <Typography variant='body1'>
-                                                            { worlds?.rows.find( row => row.id === book.world )?.name }
-                                                        </Typography>
-                                                    </Link>
-                                                </Grid>
-                                            </Grid>
-                                            <Grid
-                                                container
-                                                flexDirection='column'
-                                            >
-                                                <Grid item>
-                                                    <Typography
-                                                        variant='body1'
-                                                        sx={ {
-                                                            fontWeight: 'bold'
-                                                        } }
-                                                    >
-                                                        Synopsis:
-                                                    </Typography>
-                                                </Grid>
-                                                <Grid item>
-                                                    <Typography variant='body1'>
-                                                        { book.synopsis }
-                                                    </Typography>
-                                                </Grid>
-                                            </Grid>
-                                        </Grid>
-                                    </Grid>
-                                </Paper>
-                            </Grid>
-                        )
-                    } )
-                }
-            </Grid>
+            <BooksList
+                books={ books }
+                series={ series }
+                worlds={ worlds }
+            />
+            
+            <Pagination
+                // @ts-ignore
+                totalPages={ Math.ceil( booksCount.rows[ 0 ].count / 10 ) }
+                // offset={ offset }
+                // getBooks={ getBooks }
+            />
         </Grid>
     );
 };
