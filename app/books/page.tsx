@@ -17,6 +17,9 @@ import { fetchAllBooks, fetchWorlds, fetchSeries } from "../utils/data";
 // Types
 import { Book } from "../types/types";
 
+// Styles
+import { CardContents, BookCard } from "../ui/books/styles";
+
 export default async function Page () {
     const worlds = await fetchWorlds();
     const series = await fetchSeries();
@@ -56,6 +59,7 @@ export default async function Page () {
                                 <Paper
                                     variant="elevation"
                                     square={ false }
+                                    sx={ BookCard }
                                 >
                                     <Grid
                                         container
@@ -74,6 +78,7 @@ export default async function Page () {
                                         <Grid
                                             container
                                             flexDirection='column'
+                                            sx={ CardContents }
                                         >
                                             <Grid item>
                                                 <Link href={ `/books/${ book.id }` }>
@@ -89,8 +94,13 @@ export default async function Page () {
                                             </Grid>
                                             <Grid container>
                                                 <Grid item>
-                                                    <Typography variant='body1'>
-                                                        Series
+                                                    <Typography
+                                                        variant='body1'
+                                                        sx={ {
+                                                            fontWeight: 'bold'
+                                                        } }
+                                                    >
+                                                        Series:
                                                     </Typography>
                                                 </Grid>
                                                 <Grid item>
@@ -103,8 +113,13 @@ export default async function Page () {
                                             </Grid>
                                             <Grid container>
                                                 <Grid item>
-                                                    <Typography variant='body1'>
-                                                        World
+                                                    <Typography
+                                                        variant='body1'
+                                                        sx={ {
+                                                            fontWeight: 'bold'
+                                                        } }
+                                                    >
+                                                        World:
                                                     </Typography>
                                                 </Grid>
                                                 <Grid item>
@@ -120,8 +135,13 @@ export default async function Page () {
                                                 flexDirection='column'
                                             >
                                                 <Grid item>
-                                                    <Typography variant='body1'>
-                                                        Synopsis
+                                                    <Typography
+                                                        variant='body1'
+                                                        sx={ {
+                                                            fontWeight: 'bold'
+                                                        } }
+                                                    >
+                                                        Synopsis:
                                                     </Typography>
                                                 </Grid>
                                                 <Grid item>
