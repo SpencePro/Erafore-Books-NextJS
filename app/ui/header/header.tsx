@@ -1,7 +1,7 @@
 // Header component
 // renders nav-links, random button, search, and title-img
 // collapse when scrolling (hide title-img, remove text from buttons (icon only) + tooltips, keep search)
-'use client';
+// 'use client';
 
 import Image from "next/image";
 import Link from "next/link";
@@ -11,9 +11,14 @@ import { Grid, Typography } from "@mui/material";
 
 //Components
 import NavLinks from "./nav-links";
+import { RandomButton } from "./random";
 import { Search } from "./search";
 
-export const Header = () => {
+// Utils
+import { fetchBooksCount } from "@/app/utils/data";
+
+export const Header = async () => {
+    const booksCount = await fetchBooksCount();
     return (
         <Grid
             container
@@ -51,6 +56,7 @@ export const Header = () => {
             </Grid>
             <Grid container width='fit-content'>
                 <NavLinks/>
+                <RandomButton booksCount={ booksCount }/>
             </Grid>
             <Grid
                 item

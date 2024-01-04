@@ -1,6 +1,6 @@
 // renders buttons, icons, + links for home, books, contact
+
 // Next
-import { usePathname } from 'next/navigation';
 import Link from "next/link";
 
 // MUI
@@ -11,7 +11,6 @@ import {
 } from "@mui/material";
 import HomeIcon from '@mui/icons-material/Home';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
-import AutoStoriesIcon from '@mui/icons-material/AutoStories';
 import PhoneEnabledIcon from '@mui/icons-material/PhoneEnabled';
 
 // Styles
@@ -35,13 +34,14 @@ const links = [
     }
     // , {
     //     name: 'Random Book'
-    //     , href: `/books/${ Math.floor( Math.random() ) }`
+    //     // @ts-ignore
+    //     , href: `/books/${ Math.floor( Math.random() * booksCount?.rows?.[ 0 ]?.count || 1 ) }`
     //     , icon: AutoStoriesIcon
     // }
-  ];
+];
 
 export default function NavLinks () {
-    const pathname = usePathname();
+
     return (
         <>
             {
