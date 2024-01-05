@@ -20,6 +20,9 @@ export const Welcome = () => {
         <Grid
             container
             width='100%'
+            sx={ {
+                padding: '2rem'
+            } }
         >
             <Grid
                 container
@@ -53,6 +56,5 @@ export const Welcome = () => {
                 <Slideshow/>
             </Grid>
         </Grid>
-        
     );
 };

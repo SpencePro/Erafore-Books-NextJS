@@ -27,6 +27,10 @@ export const Header = async () => {
             flexWrap='nowrap'
             sx={ {
                 padding: '1rem'
+                , position: 'sticky'
+                , top: 0
+                , backgroundColor: '#420259'
+                , color: 'white'
             } }
         >
             <Grid item>

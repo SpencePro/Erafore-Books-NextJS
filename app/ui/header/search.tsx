@@ -12,7 +12,7 @@ import {
 import { useDebouncedCallback } from 'use-debounce';
 
 // MUI
-import { TextField, Grid, InputAdornment } from '@mui/material'; 
+import { TextField, InputAdornment } from '@mui/material'; 
 import { Search as SearchIcon } from '@mui/icons-material';
 
 export const Search = () => {
@@ -42,6 +42,9 @@ export const Search = () => {
                         <SearchIcon/>
                     </InputAdornment>
                 )
+                , style: {
+                    backgroundColor: 'whitesmoke'
+                }
             } }
         />
     );

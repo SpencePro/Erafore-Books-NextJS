@@ -9,6 +9,9 @@ export const About = () => {
             container
             flexDirection='column'
             justifyContent='center'
+            style={{
+                padding: '2rem'
+            }}
         >
             <Grid
                 item

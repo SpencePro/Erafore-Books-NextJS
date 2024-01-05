@@ -10,6 +10,10 @@ export const Footer = () => {
             width='100%'
             justifyContent='center'
             textAlign='center'
+            sx={ {
+                backgroundColor: '#420259'
+                , color: 'white'
+            } }
         >
             <Grid item>
                 <Typography variant="body1">

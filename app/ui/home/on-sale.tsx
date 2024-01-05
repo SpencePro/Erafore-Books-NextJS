@@ -23,6 +23,9 @@ export const OnSale = async () => {
             style={{
                 backgroundImage: `url(${ bgImg.src })`
                 , width: '100%'
+                , marginBottom: '2rem'
+                , padding: '1rem'
+                , color: 'white'
             }}
         >
             <Grid
@@ -43,6 +46,9 @@ export const OnSale = async () => {
                     <Grid
                         item
                         width='fit-content'
+                        sx={{
+                            border: '3px solid white'
+                        }}
                     >
                         <Link href={ `/books/${ onSaleBook.rows[ 0 ].id }` }>
                             <Image
@@ -55,7 +61,10 @@ export const OnSale = async () => {
                     </Grid>
                 </Grid>
                 <Grid item>
-                <Typography variant="body1">
+                <Typography
+                    variant='body1'
+                    fontWeight='bold'
+                >
                         { onSaleBook.rows[ 0 ].title }
                     </Typography>
                 </Grid>

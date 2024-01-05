@@ -31,7 +31,7 @@ export const RandomButton = ( { booksCount }: Props ) => {
             onClick={ handleClick }
             style={ {
                 textTransform: 'capitalize'
-                , color: 'black'
+                , color: 'white'
             } }
         >
             <AutoStoriesIcon/>

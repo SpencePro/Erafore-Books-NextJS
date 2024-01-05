@@ -24,6 +24,9 @@ export const Latest = async () => {
             style={{
                 backgroundImage: `url(${ bgImg.src })`
                 , width: '100%'
+                , marginBottom: '2rem'
+                , padding: '1rem'
+                , color: 'white'
             }}
         >
             <Grid
@@ -33,7 +36,7 @@ export const Latest = async () => {
                 justifyContent='center'
             >
                 <Grid item>
-                    <Typography variant="h5">
+                    <Typography variant='h5'>
                         The Latest Release
                     </Typography>
                 </Grid>
@@ -44,6 +47,9 @@ export const Latest = async () => {
                     <Grid
                         item
                         width='fit-content'
+                        sx={{
+                            border: '3px solid white'
+                        }}
                     >
                         <Link href={ `/books/${ latestBook.rows[ 0 ].id }` }>
                             <Image
@@ -56,7 +62,10 @@ export const Latest = async () => {
                     </Grid>
                 </Grid>
                 <Grid item>
-                    <Typography variant="body1">
+                    <Typography
+                        variant='body1'
+                        fontWeight='bold'
+                    >
                         { latestBook.rows[ 0 ].title }
                     </Typography>
                 </Grid>
