@@ -1,26 +1,28 @@
-// render page number(s), left/right arrows, perform pagination logic
 'use client'
 
 import { usePathname, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 
 // Utils
-import { generatePagination } from '@/app/utils/utils';
-import { fetchBooks } from '@/app/utils/data';
 
 // MUI
 import { Grid, IconButton, Typography } from '@mui/material';
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 
+// Types
+import { Dispatch, SetStateAction } from 'react';
+import { Book } from '@/app/types/types';
+import { QueryResult } from '@vercel/postgres';
+
 export const Pagination = ( {
     totalPages
-    // , offset
-    // , getBooks
+    , setCurrentBooks
+    , books
 }: {
     totalPages: number;
-    // offset: number;
-    // getBooks: ( offset?: number ) => Promise<void>;
+    setCurrentBooks: Dispatch<SetStateAction<Book[]>>;
+    books: QueryResult<Book>;
 } ) => {
     const pathname = usePathname();
     const searchParams = useSearchParams();
@@ -29,13 +31,22 @@ export const Pagination = ( {
     const createPageURL = (pageNumber: number | string) => {
         const params = new URLSearchParams(searchParams);
         params.set('page', pageNumber.toString());
-        // offset = Number( pageNumber ) * 10;
         if ( pageNumber === 1 ) {
-            // getBooks();
             return `${ pathname }`;
         }
-        // getBooks( offset );
         return `${pathname}?${params.toString()}`;
+    };
+
+    const handlePage = ( pageNumber: number, direction: string ) => {
+        if ( direction === 'left' ) {
+            const offset1 = ( Number( pageNumber ) * 10 ) - 10;
+            const offset2 = Number( pageNumber ) * 10;
+            setCurrentBooks( books.rows.slice( offset1, offset2 ) )
+        } else {
+            const offset1 = ( Number( pageNumber ) - 1 ) * 10;
+            const offset2 = Number( pageNumber ) * 10;
+            setCurrentBooks( books.rows.slice( offset1, offset2 ) );
+        }
     };
 
     const PaginationArrow = ({
@@ -51,6 +62,7 @@ export const Pagination = ( {
             ? (
                 <IconButton
                     disabled={ disabled }
+                    onClick={ () => handlePage( currentPage - 1, 'left' ) }
                 >
                     <ArrowLeftIcon/>
                 </IconButton>
@@ -58,6 +70,7 @@ export const Pagination = ( {
             : (
                 <IconButton
                     disabled={ disabled }
+                    onClick={ () => handlePage( currentPage + 1, 'right' ) }
                 >
                     <ArrowRightIcon/>
                 </IconButton>

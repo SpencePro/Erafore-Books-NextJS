@@ -39,7 +39,6 @@ export async function fetchBooks( offset?: number ) {
         const data = await sql<Book>`
             SELECT * FROM books
             ORDER BY publish_date ASC
-            LIMIT 10
         `;
         // ${ offset ? `OFFSET ${ offset }` : ''}
         return data;
@@ -52,7 +51,7 @@ export async function fetchBooks( offset?: number ) {
 export async function fetchBooksCount() {
     noStore();
     try {
-        const data = await sql<Book>`
+        const data = await sql<Number>`
             SELECT COUNT(*) FROM books
         `;
         return data;
