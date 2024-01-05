@@ -14,17 +14,26 @@ import {
 } from "@mui/material";
 
 // Utils
+import { fetchFilteredBooks } from "@/app/utils/data";
 
 // Types
 import { QueryResult } from "@vercel/postgres";
-import { Series, World } from "@/app/types/types";
+import { Series, World, Book } from "@/app/types/types";
+import { SetStateAction, Dispatch } from "react";
 
 interface Props {
     series: QueryResult<Series>;
     worlds: QueryResult<World>;
+    setCurrentBooks: Dispatch<SetStateAction<Book[]>>;
+    setBooksCount: Dispatch<SetStateAction<number>>;
 }
 
-export const Filters = ( { series, worlds }: Props ) => {
+export const Filters = ( {
+    series
+    , worlds
+    , setCurrentBooks
+    , setBooksCount
+}: Props ) => {
     const [ selectedSeries, setSelectedSeries ] = useState<number>( 0 );
     const [ selectedWorld, setSelectedWorld ] = useState<number>( 0 );
 
@@ -38,11 +47,14 @@ export const Filters = ( { series, worlds }: Props ) => {
         setSelectedWorld( Number( value ) );
     };
 
-    const submitFilter = () => {
+    const submitFilter = async () => {
         console.log( {
             selectedSeries
             , selectedWorld
         } );
+        const filteredBooks = await fetchFilteredBooks( selectedSeries, selectedWorld );
+        setCurrentBooks( filteredBooks.rows.slice( 0, 10 ) );
+        setBooksCount( filteredBooks.rowCount );
     };
 
     return (
@@ -123,6 +135,7 @@ export const Filters = ( { series, worlds }: Props ) => {
                     <Button
                         variant='outlined'
                         onClick={ submitFilter }
+                        disabled={ !selectedSeries && !selectedWorld }
                         style={{
                             height: '2rem'
                             , width: '4rem'

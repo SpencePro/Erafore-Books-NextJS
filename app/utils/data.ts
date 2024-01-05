@@ -2,6 +2,8 @@
 import { sql } from '@vercel/postgres';
 import { unstable_noStore as noStore } from 'next/cache';
 import { Book, World, Series } from '../types/types';
+require('dotenv').config();
+
 
 export async function fetchLatestBook() {
     noStore();
@@ -64,6 +66,34 @@ export async function fetchBooksCount() {
 export async function fetchFilteredBooks( worldId?: number, seriesId?: number ) {
     noStore();
     try {
+        // if ( worldId && seriesId ) {
+        //     const data = await sql<Book>`
+        //         SELECT * FROM books
+        //         WHERE world=${ worldId } AND series=${ seriesId }
+        //         ORDER BY publish_date ASC
+        //     `;
+        //     return data;
+        // } else if ( worldId && !seriesId ) {
+        //     const data = await sql<Book>`
+        //         SELECT * FROM books
+        //         WHERE world=${ worldId }
+        //         ORDER BY publish_date ASC
+        //     `;
+        //     return data;
+        // } else if ( !worldId && seriesId ) {
+        //     const data = await sql<Book>`
+        //         SELECT * FROM books
+        //         WHERE series=${ seriesId }
+        //         ORDER BY publish_date ASC
+        //     `;
+        //     return data;
+        // } else {
+        //     const data = await sql<Book>`
+        //         SELECT * FROM books
+        //         ORDER BY publish_date ASC
+        //     `;
+        //     return data;
+        // }
         const data = await sql<Book>`
             SELECT * FROM books
             WHERE ${
@@ -85,7 +115,6 @@ export async function fetchFilteredBooks( worldId?: number, seriesId?: number ) 
 }
 
 export async function fetchSingleBookById( id: number ) {
-    noStore();
     try {
         const data = await sql<Book>`
             SELECT * FROM books

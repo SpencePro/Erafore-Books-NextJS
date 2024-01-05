@@ -2,7 +2,6 @@
 import { Grid, Typography } from "@mui/material";
 
 // Components
-import { Filters } from "../ui/books/filters";
 import { BooksList } from "../ui/books/books-list";
 
 // Utils
@@ -13,7 +12,6 @@ export default async function Page () {
     const worlds = await fetchWorlds();
     const series = await fetchSeries();
     const books = await fetchBooks();
-    const booksCount = books.rowCount;
 
     return (
         <Grid
@@ -29,17 +27,10 @@ export default async function Page () {
                     Books
                 </Typography>
             </Grid>
-            <Grid item>
-                <Filters
-                    series={ series }
-                    worlds={ worlds }
-                />
-            </Grid>
             <BooksList
                 books={ books }
                 series={ series }
                 worlds={ worlds }
-                booksCount={ booksCount }
             />
         </Grid>
     );

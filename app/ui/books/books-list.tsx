@@ -5,6 +5,7 @@ import Link from "next/link";
 
 // Components
 import { Pagination } from "./pagination";
+import { Filters } from "./filters";
 
 // Utils
 
@@ -22,22 +23,29 @@ interface Props {
     books: QueryResult<Book>;
     series: QueryResult<Series>;
     worlds: QueryResult<World>;
-    booksCount: number;
+    // booksCount: number;
 }
 
 export const BooksList = ( {
     books
     , series
     , worlds
-    , booksCount
+    // , booksCount
 }: Props ) => {
     const [ currentBooks, setCurrentBooks ] = useState<Book[]>( books.rows.slice( 0, 10 ) );
+    const [ booksCount, setBooksCount ] = useState<number>( books.rowCount );
 
     return (
         <Grid
             container
             flexDirection='column'
         >
+            <Filters
+                series={ series }
+                worlds={ worlds }
+                setCurrentBooks={ setCurrentBooks }
+                setBooksCount={ setBooksCount }
+            />
             <Grid
                 container
                 spacing={ 2 }
