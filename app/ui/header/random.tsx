@@ -15,7 +15,7 @@ import { Book } from "@/app/types/types";
 import { QueryResult } from "@vercel/postgres";
 
 interface Props {
-    booksCount: QueryResult<Book>;
+    booksCount: QueryResult<Number>;
 }
 
 export const RandomButton = ( { booksCount }: Props ) => {
