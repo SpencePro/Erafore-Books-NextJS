@@ -38,6 +38,7 @@ export const Pagination = ( {
     };
 
     const handlePage = ( pageNumber: number, direction: string ) => {
+        window.scrollTo( 0, 0 );
         if ( direction === 'left' ) {
             const offset1 = ( Number( pageNumber ) * 10 ) - 10;
             const offset2 = Number( pageNumber ) * 10;
@@ -92,7 +93,11 @@ export const Pagination = ( {
     };
 
     return (
-        <Grid container>
+        <Grid
+            container
+            justifyContent='center'
+            alignItems='center'
+        >
             <Grid item>
                 <PaginationArrow
                     direction='left'

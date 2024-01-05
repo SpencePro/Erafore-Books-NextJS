@@ -24,6 +24,7 @@ export const Header = async () => {
             container
             justifyContent='space-between'
             alignItems='center'
+            flexWrap='nowrap'
             sx={ {
                 padding: '1rem'
             } }
@@ -54,7 +55,11 @@ export const Header = async () => {
                     </Typography>
                 </Grid>
             </Grid>
-            <Grid container width='fit-content'>
+            <Grid
+                container
+                width='fit-content'
+                flexWrap='nowrap'
+            >
                 <NavLinks/>
                 <RandomButton booksCount={ booksCount }/>
             </Grid>
