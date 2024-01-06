@@ -1,5 +1,6 @@
 'use client'
 
+import { useEffect } from 'react';
 import { usePathname, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 
@@ -49,6 +50,10 @@ export const Pagination = ( {
             setCurrentBooks( books.rows.slice( offset1, offset2 ) );
         }
     };
+
+    useEffect( () => {
+        handlePage( currentPage, 'left' );
+    }, [ currentPage ] );
 
     const PaginationArrow = ({
         direction

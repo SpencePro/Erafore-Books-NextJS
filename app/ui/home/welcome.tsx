@@ -20,6 +20,7 @@ export const Welcome = () => {
         <Grid
             container
             width='100%'
+            flexWrap='nowrap'
             sx={ {
                 padding: '2rem'
             } }
