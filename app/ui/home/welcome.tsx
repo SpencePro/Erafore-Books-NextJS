@@ -42,7 +42,7 @@ export const Welcome = () => {
                     </Typography>
                 </Grid>
                 <Grid item>
-                    <Typography variant="body1">
+                    <Typography variant="body1" fontStyle='italic'>
                         { renderQuote() }
                     </Typography>
                 </Grid>
@@ -51,7 +51,8 @@ export const Welcome = () => {
                 container
                 justifyContent='center'
                 alignItems='center'
-                width='40%'
+                width={ 500 }
+                height={ 500 }
             >
                 <Slideshow/>
             </Grid>
