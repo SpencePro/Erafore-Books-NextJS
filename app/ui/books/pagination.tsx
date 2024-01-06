@@ -97,6 +97,9 @@ export const Pagination = ( {
             container
             justifyContent='center'
             alignItems='center'
+            sx={{
+                margin: '1rem'
+            }}
         >
             <Grid item>
                 <PaginationArrow

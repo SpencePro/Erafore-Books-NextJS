@@ -5,7 +5,7 @@ import { Grid, Typography } from "@mui/material";
 import { BooksList } from "../ui/books/books-list";
 
 // Utils
-import { fetchBooks, fetchWorlds, fetchSeries, fetchBooksCount } from "../utils/data";
+import { fetchBooks, fetchWorlds, fetchSeries } from "../utils/data";
 
 
 export default async function Page () {
@@ -22,6 +22,9 @@ export default async function Page () {
             <Grid
                 item
                 textAlign='center'
+                px={{
+                    margin: '2rem'
+                }}
             >
                 <Typography variant="h4">
                     Books

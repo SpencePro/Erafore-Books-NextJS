@@ -31,6 +31,7 @@ export const Header = async () => {
                 , top: 0
                 , backgroundColor: '#420259'
                 , color: 'white'
+                , zIndex: 1
             } }
         >
             <Grid item>

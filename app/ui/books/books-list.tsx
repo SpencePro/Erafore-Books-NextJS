@@ -1,23 +1,25 @@
 'use client'
-import { useState } from "react";
-import Image from "next/image";
-import Link from "next/link";
+import { useState } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
 
 // Components
-import { Pagination } from "./pagination";
-import { Filters } from "./filters";
+import { Pagination } from './pagination';
+import { Filters } from './filters';
 
 // Utils
+import { format } from 'date-fns';
 
 // MUI
-import { Grid, Typography, Paper } from "@mui/material";
+import { Grid, Typography, Paper, Tooltip } from '@mui/material';
+import HeadphonesIcon from '@mui/icons-material/Headphones';
 
 // Types
-import { Book, Series, World } from "@/app/types/types";
-import { QueryResult } from "@vercel/postgres";
+import { Book, Series, World } from '@/app/types/types';
+import { QueryResult } from '@vercel/postgres';
 
 // Styles
-import { CardContents, BookCard } from "./styles";
+import { CardContents, BookCard, OnSaleRibbon } from './styles';
 
 interface Props {
     books: QueryResult<Book>;
@@ -49,6 +51,11 @@ export const BooksList = ( {
             <Grid
                 container
                 spacing={ 2 }
+                id='right-here'
+                sx={{
+                    padding: '1rem 8rem 0rem 8rem'
+                    , 
+                }}
             >
                 {
                     currentBooks.map( ( book: Book ) => {
@@ -58,7 +65,7 @@ export const BooksList = ( {
                                 key={ book.id }
                             >
                                 <Paper
-                                    variant="elevation"
+                                    variant='elevation'
                                     square={ false }
                                     sx={ BookCard }
                                 >
@@ -66,7 +73,7 @@ export const BooksList = ( {
                                         container
                                         flexWrap='nowrap'
                                     >
-                                        <Grid item>
+                                        <Grid item style={{ position: 'relative' }}>
                                             <Link href={ `/books/${ book.id }` }>
                                                 <Image
                                                     src={ `/books/${ book.cover_image }.jpg` }
@@ -75,22 +82,48 @@ export const BooksList = ( {
                                                     alt={ `Cover image of ${ book.title }` }
                                                 />
                                             </Link>
+                                            {
+                                                book.on_sale
+                                                    ? (
+                                                        <Grid item sx={ OnSaleRibbon }>On Sale</Grid>
+                                                    )
+                                                    : null
+                                            }
                                         </Grid>
                                         <Grid
                                             container
                                             flexDirection='column'
                                             sx={ CardContents }
                                         >
-                                            <Grid item>
-                                                <Link href={ `/books/${ book.id }` }>
-                                                    <Typography variant="body1">
-                                                        { book.title }
-                                                    </Typography>
-                                                </Link>
+                                            <Grid
+                                                container
+                                                alignItems='center'
+                                            >
+                                                <Grid item>
+                                                    <Link href={ `/books/${ book.id }` }>
+                                                        <Typography
+                                                            variant='body1'
+                                                            fontWeight='bold'
+                                                        >
+                                                            { book.title }
+                                                        </Typography>
+                                                    </Link>
+                                                </Grid>
+                                                {
+                                                    book.audio_book
+                                                        ? (
+                                                            <Grid item>
+                                                                <Tooltip title='Available as an Audiobook'>
+                                                                    <HeadphonesIcon/>
+                                                                </Tooltip>
+                                                            </Grid>
+                                                        )
+                                                        : null
+                                                }
                                             </Grid>
                                             <Grid item>
                                                 <Typography variant='body1'>
-                                                    { `Published ${ book.publish_date }`}
+                                                    { `Published ${ format( book.publish_date, 'MM/dd/yyyy' ) }`}
                                                 </Typography>
                                             </Grid>
                                             <Grid container>
@@ -99,6 +132,7 @@ export const BooksList = ( {
                                                         variant='body1'
                                                         sx={ {
                                                             fontWeight: 'bold'
+                                                            , marginRight: '0.5rem'
                                                         } }
                                                     >
                                                         Series:
@@ -118,6 +152,7 @@ export const BooksList = ( {
                                                         variant='body1'
                                                         sx={ {
                                                             fontWeight: 'bold'
+                                                            , marginRight: '0.5rem'
                                                         } }
                                                     >
                                                         World:

@@ -5,11 +5,13 @@ import Link from "next/link";
 import Image from "next/image";
 
 // Utils
-import { fetchSingleBookById } from "@/app/utils/data";
+import { fetchSingleBookById, fetchSeries, fetchWorlds } from "@/app/utils/data";
+import { format } from 'date-fns';
 
 // MUI
 import { Grid, Typography, Tooltip, Paper } from "@mui/material";
 import HeadphonesIcon from '@mui/icons-material/Headphones';
+import LaunchIcon from '@mui/icons-material/Launch';
 
 // Types
 import { Book } from "@/app/types/types";
@@ -22,6 +24,9 @@ import {
 
 export default async function Page ( { params }: { params: { id: string } } ) {
     const id = Number( params.id );
+    
+    const worlds = await fetchWorlds();
+    const series = await fetchSeries();
 
     const bookInfo = await fetchSingleBookById( id );
     const book = bookInfo.rows[ 0 ];
@@ -74,15 +79,19 @@ export default async function Page ( { params }: { params: { id: string } } ) {
                                     : null
                             }
                             <Grid item>
-                                <a href={ `${ book.amazon_link }` }>
+                                <a
+                                    href={ `${ book.amazon_link }` }
+                                    target='_blank'
+                                    rel='noopener noreferrer'
+                                >
                                     <Typography variant="h5">
-                                        Purchase on Amazon
+                                        Purchase on Amazon <LaunchIcon/>
                                     </Typography>
                                 </a>
                             </Grid>
                             <Grid item>
                                 <Typography variant='body1'>
-                                    { `Published ${ book.publish_date }`}
+                                { `Published ${ format( book.publish_date, 'MM/dd/yyyy' ) }`}
                                 </Typography>
                             </Grid>
                             <Grid container>
@@ -91,6 +100,7 @@ export default async function Page ( { params }: { params: { id: string } } ) {
                                         variant='body1'
                                         sx={ {
                                             fontWeight: 'bold'
+                                            , marginRight: '0.5rem'
                                         } }
                                     >
                                         Series: 
@@ -99,7 +109,7 @@ export default async function Page ( { params }: { params: { id: string } } ) {
                                 <Grid item>
                                     <Link href={ `/books/?series=${ book.series }` }>
                                         <Typography variant='body1'>
-                                            {/* { series?.rows.find( row => row.id === book.series )?.name } */}
+                                            { series?.rows.find( row => row.id === book.series )?.name }
                                         </Typography>
                                     </Link>
                                 </Grid>
@@ -110,6 +120,7 @@ export default async function Page ( { params }: { params: { id: string } } ) {
                                         variant='body1'
                                         sx={ {
                                             fontWeight: 'bold'
+                                            , marginRight: '0.5rem'
                                         } }
                                     >
                                         World: 
@@ -118,7 +129,7 @@ export default async function Page ( { params }: { params: { id: string } } ) {
                                 <Grid item>
                                     <Link href={ `/books/?world=${ book.world }` }>
                                         <Typography variant='body1'>
-                                            {/* { worlds?.rows.find( row => row.id === book.world )?.name } */}
+                                            { worlds?.rows.find( row => row.id === book.world )?.name }
                                         </Typography>
                                     </Link>
                                 </Grid>
