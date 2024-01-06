@@ -8,6 +8,9 @@ import Image from "next/image";
 import { fetchSingleBookById, fetchSeries, fetchWorlds } from "@/app/utils/data";
 import { format } from 'date-fns';
 
+// Components
+import { ExpandedImg } from "@/app/ui/books/expanded-img";
+
 // MUI
 import { Grid, Typography, Tooltip, Paper } from "@mui/material";
 import HeadphonesIcon from '@mui/icons-material/Headphones';
@@ -55,12 +58,7 @@ export default async function Page ( { params }: { params: { id: string } } ) {
                         flexWrap='nowrap'
                     >
                         <Grid item>
-                            <Image
-                                src={ `/books/${ book.cover_image }.jpg` }
-                                height={ 400 }
-                                width={ 400 }
-                                alt={ `Cover image of ${ book.title }` }
-                            />
+                            <ExpandedImg book={ book }/>
                         </Grid>
                         <Grid
                             container

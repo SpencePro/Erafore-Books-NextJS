@@ -4,17 +4,19 @@
 
 import Image from "next/image";
 import Link from "next/link";
+
+// MUI
 import {
     Grid
     , Typography
 } from "@mui/material"
-import bgImg from '../../../public/home/manuscript-3914930_1920.jpg';
 
 // Utils
 import { fetchOnSaleBook } from "@/app/utils/data";
 
 // Styles
 import { BackgroundImageStyle } from "./styles";
+import bgImg from '../../../public/home/manuscript-3914930_1920.jpg';
 
 export const OnSale = async () => {
     const onSaleBook = await fetchOnSaleBook();

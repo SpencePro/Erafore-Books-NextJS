@@ -21,9 +21,29 @@ export const OnSaleRibbon = {
     , fontWeight: 600
     , fontSize: '24px'
     , whiteSpace: 'nowrap'
-    // , webkitTransform: 'rotate(35deg)'
-    // , mozTransform: 'rotate(35deg)'
-    // , msTransform: 'rotate(35deg)'
-    // , oTransform: 'rotate(35deg)'
-    // , transform: 'rotate(35deg)'
+}
+
+export const ImageModalStyle = {
+    position: 'fixed'
+    , zIndex: 1
+    , display: 'flex'
+    , justifyContent: 'center'
+    , overflow: 'auto'
+    , textAlign: 'center'
+    , width: '100%'
+    , margin: '0.5rem'
+}
+
+export const ImageBoxStyle = {
+    padding: '1rem'
+    , borderRadius: 4
+    , overflow: 'auto'
+    , background: 'white'
+    , position: 'sticky'
+    , '& btn': {
+        marginBottom: '0.5rem'
+    }
+    , '& img': {
+        borderRadius: 4
+    }
 }
