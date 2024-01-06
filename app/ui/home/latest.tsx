@@ -13,6 +13,9 @@ import bgImg from '../../../public/home/document-1729019_1920-edit.jpg';
 // Utils
 import { fetchLatestBook } from "@/app/utils/data";
 
+// Styles
+import { BackgroundImageStyle } from "./styles";
+
 // TODO: Render loading skeleton while calling BE
 // TODO: Scroll down on bg image
 
@@ -21,13 +24,7 @@ export const Latest = async () => {
     return (
         <Grid
             container
-            style={{
-                backgroundImage: `url(${ bgImg.src })`
-                , width: '100%'
-                , marginBottom: '2rem'
-                , padding: '1rem'
-                , color: 'white'
-            }}
+            style={ BackgroundImageStyle( bgImg.src ) }
         >
             <Grid
                 container

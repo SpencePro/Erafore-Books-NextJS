@@ -13,20 +13,15 @@ import bgImg from '../../../public/home/manuscript-3914930_1920.jpg';
 // Utils
 import { fetchOnSaleBook } from "@/app/utils/data";
 
-// TODO: Scroll down on bg image
+// Styles
+import { BackgroundImageStyle } from "./styles";
 
 export const OnSale = async () => {
     const onSaleBook = await fetchOnSaleBook();
     return (
         <Grid
             container
-            style={{
-                backgroundImage: `url(${ bgImg.src })`
-                , width: '100%'
-                , marginBottom: '2rem'
-                , padding: '1rem'
-                , color: 'white'
-            }}
+            style={ BackgroundImageStyle( bgImg.src ) }
         >
             <Grid
                 container
