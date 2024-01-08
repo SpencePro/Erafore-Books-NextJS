@@ -11,7 +11,7 @@ import { Filters } from './filters';
 import { format } from 'date-fns';
 
 // MUI
-import { Grid, Typography, Paper, Tooltip } from '@mui/material';
+import { Grid, Typography, Paper, Tooltip, Button } from '@mui/material';
 import HeadphonesIcon from '@mui/icons-material/Headphones';
 
 // Types
@@ -19,7 +19,7 @@ import { Book, Series, World } from '@/app/types/types';
 import { QueryResult } from '@vercel/postgres';
 
 // Styles
-import { CardContents, BookCard, OnSaleRibbon } from './styles';
+import { CardContents, BookCard, OnSaleRibbon, SynopsisStyle } from './styles';
 
 interface Props {
     books: QueryResult<Book>;
@@ -77,8 +77,8 @@ export const BooksList = ( {
                                             <Link href={ `/books/${ book.id }` }>
                                                 <Image
                                                     src={ `/books/${ book.cover_image }.jpg` }
-                                                    height={ 200 }
-                                                    width={ 200 }
+                                                    height={ 300 }
+                                                    width={ 300 }
                                                     alt={ `Cover image of ${ book.title }` }
                                                 />
                                             </Link>
@@ -98,6 +98,7 @@ export const BooksList = ( {
                                             <Grid
                                                 container
                                                 alignItems='center'
+                                                flexWrap='nowrap'
                                             >
                                                 <Grid item>
                                                     <Link href={ `/books/${ book.id }` }>
@@ -105,21 +106,18 @@ export const BooksList = ( {
                                                             variant='body1'
                                                             fontWeight='bold'
                                                         >
-                                                            { book.title }
+                                                            { book.title } {
+                                                                book.audio_book
+                                                                    ? (
+                                                                        <Tooltip title='Available as an Audiobook'>
+                                                                            <HeadphonesIcon/>
+                                                                        </Tooltip>
+                                                                    )
+                                                                    : null
+                                                            }
                                                         </Typography>
                                                     </Link>
                                                 </Grid>
-                                                {
-                                                    book.audio_book
-                                                        ? (
-                                                            <Grid item>
-                                                                <Tooltip title='Available as an Audiobook'>
-                                                                    <HeadphonesIcon/>
-                                                                </Tooltip>
-                                                            </Grid>
-                                                        )
-                                                        : null
-                                                }
                                             </Grid>
                                             <Grid item>
                                                 <Typography variant='body1'>
@@ -181,10 +179,21 @@ export const BooksList = ( {
                                                     </Typography>
                                                 </Grid>
                                                 <Grid item>
-                                                    <Typography variant='body1'>
+                                                    <Typography
+                                                        variant='body1'
+                                                        sx={ SynopsisStyle }
+                                                    >
                                                         { book.synopsis }
                                                     </Typography>
                                                 </Grid>
+                                            </Grid>
+                                            <Grid
+                                                container
+                                                justifyContent='center'
+                                            >
+                                                <Link href={ `/books/${ book.id }` }>
+                                                    <Button variant='outlined'>See More</Button>
+                                                </Link>
                                             </Grid>
                                         </Grid>
                                     </Grid>

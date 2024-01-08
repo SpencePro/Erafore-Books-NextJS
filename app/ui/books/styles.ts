@@ -8,6 +8,9 @@ export const BookCard = {
 
 export const CardContents = {
     marginLeft: '1rem'
+    , '& p': {
+        marginBottom: '0.75rem'
+    }
 }
 
 export const OnSaleRibbon = {
@@ -46,4 +49,10 @@ export const ImageBoxStyle = {
     , '& img': {
         borderRadius: 4
     }
+}
+
+export const SynopsisStyle = {
+    maxHeight: '7rem'
+    , overflow: 'hidden'
+    , '-webkit-mask-image': 'linear-gradient(white, transparent)'
 }
