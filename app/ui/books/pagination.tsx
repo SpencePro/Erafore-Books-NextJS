@@ -27,10 +27,10 @@ export const Pagination = ( {
 } ) => {
     const pathname = usePathname();
     const searchParams = useSearchParams();
-    const currentPage = Number(searchParams.get('page')) || 1;
+    const currentPage = Number(searchParams?.get('page')) || 1;
 
     const createPageURL = (pageNumber: number | string) => {
-        const params = new URLSearchParams(searchParams);
+        const params = new URLSearchParams(searchParams || '');
         params.set('page', pageNumber.toString());
         if ( pageNumber === 1 ) {
             return `${ pathname }`;

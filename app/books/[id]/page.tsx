@@ -3,6 +3,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { notFound } from 'next/navigation';
 
 // Utils
 import { fetchSingleBookById, fetchSeries, fetchWorlds } from "@/app/utils/data";
@@ -32,6 +33,7 @@ export default async function Page ( { params }: { params: { id: string } } ) {
     const series = await fetchSeries();
 
     const bookInfo = await fetchSingleBookById( id );
+    console.log( {bookInfo} );
     const book = bookInfo.rows[ 0 ];
 
     return (

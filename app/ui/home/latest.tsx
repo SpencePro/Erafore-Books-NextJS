@@ -48,12 +48,12 @@ export const Latest = async () => {
                             border: '3px solid white'
                         }}
                     >
-                        <Link href={ `/books/${ latestBook.rows[ 0 ].id }` }>
+                        <Link href={ latestBook ? `/books/${ latestBook.rows[ 0 ].id }` : '/' }>
                             <Image
-                                src={ `/books/${ latestBook.rows[ 0 ].cover_image }.jpg` }
+                                src={ latestBook ? `/books/${ latestBook.rows[ 0 ].cover_image }.jpg` : '' }
                                 height={ 200 }
                                 width={ 200 }
-                                alt={ `Cover image of ${ latestBook.rows[ 0 ].title }`}
+                                alt={ `Cover image of ${ latestBook?.rows[ 0 ].title || 'Book not found' }`}
                             />
                         </Link> 
                     </Grid>
@@ -63,7 +63,7 @@ export const Latest = async () => {
                         variant='body1'
                         fontWeight='bold'
                     >
-                        { latestBook.rows[ 0 ].title }
+                        { latestBook?.rows[ 0 ].title || '' }
                     </Typography>
                 </Grid>
             </Grid>

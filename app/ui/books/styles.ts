@@ -54,5 +54,5 @@ export const ImageBoxStyle = {
 export const SynopsisStyle = {
     maxHeight: '7rem'
     , overflow: 'hidden'
-    , '-webkit-mask-image': 'linear-gradient(white, transparent)'
+    , WebkitMaskImage: 'linear-gradient(white, transparent)'
 }

@@ -1,12 +1,14 @@
 // SQL Queries and API calling functions
 import { sql } from '@vercel/postgres';
-import { unstable_noStore as noStore } from 'next/cache';
+import { unstable_noStore as noStore, revalidatePath } from 'next/cache';
 import { Book, World, Series } from '../types/types';
+import { redirect } from 'next/dist/server/api-utils';
 require('dotenv').config();
 
 
 export async function fetchLatestBook() {
     noStore();
+    // throw Error;
     try {
         const data = await sql<Book>`
             SELECT * FROM books
@@ -15,9 +17,12 @@ export async function fetchLatestBook() {
         `;
         return data;
     } catch ( e ) {
-        console.error( e );
-        throw e;
+        if ( e && e instanceof Error ) {
+            console.error( e );
+            throw e;
+        }
     }
+    // revalidatePath('/');
 }
 
 export async function fetchOnSaleBook() {
