@@ -15,14 +15,14 @@ import { Book } from "@/app/types/types";
 import { QueryResult } from "@vercel/postgres";
 
 interface Props {
-    booksCount: QueryResult<Number>;
+    booksCount: number;
 }
 
 export const RandomButton = ( { booksCount }: Props ) => {
     const handleClick = ( e: any ) => {
         e.preventDefault();
         // @ts-ignore
-        const href = `/books/${ Math.floor( Math.random() * booksCount?.rows?.[ 0 ]?.count || 1 ) }`;
+        const href = `/books/${ Math.floor( Math.random() * booksCount || 1 ) }`;
         window.location.href = href;
     }
     return (

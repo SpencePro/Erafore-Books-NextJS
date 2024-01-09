@@ -15,10 +15,11 @@ import { RandomButton } from "./random";
 import { Search } from "./search";
 
 // Utils
-import { fetchBooksCount } from "@/app/utils/data";
+import { fetchBooks } from "@/app/utils/data";
 
 export const Header = async () => {
-    const booksCount = await fetchBooksCount();
+    const books = await fetchBooks();
+    const booksCount = books.rowCount;
     return (
         <Grid
             container
@@ -73,7 +74,7 @@ export const Header = async () => {
                 display='flex'
                 alignItems='center'
             >
-                <Search/>
+                <Search books={ books } />
             </Grid>
         </Grid>
     );
