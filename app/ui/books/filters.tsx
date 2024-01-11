@@ -2,7 +2,7 @@
 // form -> Formik?
 'use client'
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 // MUI
 import {
@@ -14,7 +14,8 @@ import {
 } from "@mui/material";
 
 // Utils
-import { usePathname, useSearchParams } from 'next/navigation';
+import { usePathname } from 'next/navigation';
+import Link from "next/link";
 
 // Types
 import { QueryResult } from "@vercel/postgres";
@@ -28,6 +29,7 @@ interface Props {
     setCurrentBooks: Dispatch<SetStateAction<Book[]>>;
     setBooksCount: Dispatch<SetStateAction<number>>;
     setFilteredBooks: Dispatch<SetStateAction<Book[]>>;
+    currentBooks: Book[];
 }
 
 export const Filters = ( {
@@ -37,36 +39,37 @@ export const Filters = ( {
     , setCurrentBooks
     , setBooksCount
     , setFilteredBooks
+    , currentBooks
 }: Props ) => {
     const pathname = usePathname();
 
     const [ selectedSeries, setSelectedSeries ] = useState<number>( 0 );
     const [ selectedWorld, setSelectedWorld ] = useState<number>( 0 );
     const [ filterActive, setFilterActive ] = useState<boolean>( false );
+    const [ filterDescription, setFilterDescription ] = useState<string>( '' );
 
     const handleSelectSeries = ( value: string | number ) => {
-        console.log( { value } );
         setSelectedSeries( Number( value ) );
     };
 
     const handleSelectWorld = ( value: string | number ) => {
-        console.log( { value } );
         setSelectedWorld( Number( value ) );
     };
 
     const submitFilter = async () => {
-        console.log( {
-            selectedSeries
-            , selectedWorld
-        } );
-        const filteredBooks = books.rows.filter( book => book.series === selectedSeries || book.world === selectedWorld );
-        // const filteredBooks = await fetchFilteredBooks( selectedSeries, selectedWorld );
-        console.log( { filteredBooks } );
+        const filteredBooks = books.rows.filter( book =>
+            selectedSeries && !selectedWorld
+                ? book.series === selectedSeries
+                : !selectedSeries && selectedWorld
+                    ? book.world === selectedWorld
+                    : selectedSeries && selectedWorld
+                        ? book.world === selectedWorld && book.series === selectedSeries
+                        : null
+        );
         setCurrentBooks( filteredBooks.slice( 0, 10 ) );
         setBooksCount( filteredBooks.length );
         setFilterActive( true ); 
         setFilteredBooks( filteredBooks );
-        // return `${pathname}`;
     };
 
     const resetFilter = () => {
@@ -76,8 +79,18 @@ export const Filters = ( {
         setSelectedSeries( 0 );
         setSelectedWorld( 0 );
         setFilteredBooks( books.rows );
-        // return `${pathname}`;
+        setFilterDescription( '' );
     };
+
+    useEffect( () => {
+        if ( filterActive ) {
+            if ( selectedSeries ) {
+                setFilterDescription( series.rows.find( row => row.id === selectedSeries )?.description || '' );
+            } else if ( selectedWorld ) {
+                setFilterDescription( worlds.rows.find( row => row.id === selectedWorld )?.description || '' );
+            }
+        }
+    }, [ currentBooks ] );
 
     return (
         <Grid
@@ -154,49 +167,55 @@ export const Filters = ( {
                     </Select>
                 </Grid>
                 <Grid item>
-                    <Button
-                        variant='outlined'
-                        onClick={ submitFilter }
-                        disabled={ !selectedSeries && !selectedWorld }
-                        style={{
-                            height: '2rem'
-                            , width: '4rem'
-                        }}
-                    >
-                        Filter
-                    </Button>
+                    <Link href={ `${ pathname }` }>
+                        <Button
+                            variant='outlined'
+                            onClick={ submitFilter }
+                            disabled={ !selectedSeries && !selectedWorld }
+                            style={{
+                                height: '2rem'
+                                , width: '4rem'
+                            }}
+                        >
+                            Filter
+                        </Button>
+                    </Link>
                 </Grid>
             </Grid>
             <Grid
                 item
                 textAlign='center'
             >
-                {
-                    selectedSeries && filterActive
-                        ? (
-                            <Typography variant='body1'>
-                                { series.rows.find( row => row.id === selectedSeries )?.description }
-                            </Typography>
-                        )
-                        : selectedWorld && filterActive
-                            ? (
-                                <Typography variant='body1'>
-                                    { worlds.rows.find( row => row.id === selectedWorld )?.description }
-                                </Typography>
-                            )
-                            : null
-                }
+            <Grid
+                container
+                justifyContent='center'
+            >
+                <Typography
+                    variant='body1'
+                    textAlign='center'
+                >
+                    { filterDescription }
+                </Typography>
+            </Grid>
             </Grid>
             {
                 filterActive
                     ? (
-                        <Grid container justifyContent='center'>
-                            <Button
-                                variant='outlined'
-                                onClick={ resetFilter }
-                            >
-                                Reset Filter
-                            </Button>
+                        <Grid
+                            container
+                            justifyContent='center'
+                        >
+                            <Link href={ `${ pathname }` }>
+                                <Button
+                                    variant='outlined'
+                                    onClick={ resetFilter }
+                                    style={{
+                                        margin: '1rem'
+                                    }}
+                                >
+                                    Reset Filter
+                                </Button>
+                            </Link>
                         </Grid>
                     )
                     : null

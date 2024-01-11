@@ -14,7 +14,6 @@ import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 // Types
 import { Dispatch, SetStateAction } from 'react';
 import { Book } from '@/app/types/types';
-import { QueryResult } from '@vercel/postgres';
 
 export const Pagination = ( {
     totalPages

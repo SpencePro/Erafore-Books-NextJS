@@ -25,14 +25,12 @@ interface Props {
     books: QueryResult<Book>;
     series: QueryResult<Series>;
     worlds: QueryResult<World>;
-    // booksCount: number;
 }
 
 export const BooksList = ( {
     books
     , series
     , worlds
-    // , booksCount
 }: Props ) => {
     const [ currentBooks, setCurrentBooks ] = useState<Book[]>( books.rows.slice( 0, 10 ) );
     const [ booksCount, setBooksCount ] = useState<number>( books.rowCount );
@@ -48,6 +46,7 @@ export const BooksList = ( {
                 worlds={ worlds }
                 books={ books }
                 setCurrentBooks={ setCurrentBooks }
+                currentBooks={ currentBooks }
                 setBooksCount={ setBooksCount }
                 setFilteredBooks={ setFilteredBooks }
             />
@@ -204,6 +203,18 @@ export const BooksList = ( {
                             </Grid>
                         )
                     } )
+                }
+                {
+                    currentBooks.length === 0
+                    && (
+                        <Grid
+                            container 
+                            justifyContent='center'>
+                            <Typography variant='body1'>
+                                There are no books that match the filters.
+                            </Typography>
+                        </Grid>
+                    )
                 }
             </Grid>
             <Pagination
