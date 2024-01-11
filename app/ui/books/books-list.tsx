@@ -36,6 +36,7 @@ export const BooksList = ( {
 }: Props ) => {
     const [ currentBooks, setCurrentBooks ] = useState<Book[]>( books.rows.slice( 0, 10 ) );
     const [ booksCount, setBooksCount ] = useState<number>( books.rowCount );
+    const [ filteredBooks, setFilteredBooks ] = useState<Book[]>( books.rows );
 
     return (
         <Grid
@@ -45,8 +46,10 @@ export const BooksList = ( {
             <Filters
                 series={ series }
                 worlds={ worlds }
+                books={ books }
                 setCurrentBooks={ setCurrentBooks }
                 setBooksCount={ setBooksCount }
+                setFilteredBooks={ setFilteredBooks }
             />
             <Grid
                 container
@@ -206,7 +209,7 @@ export const BooksList = ( {
             <Pagination
                 totalPages={ Math.ceil( booksCount / 10 ) || 0 }
                 setCurrentBooks={ setCurrentBooks }
-                books={ books }
+                books={ filteredBooks }
             />
         </Grid>
     );

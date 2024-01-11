@@ -23,7 +23,7 @@ export const Pagination = ( {
 }: {
     totalPages: number;
     setCurrentBooks: Dispatch<SetStateAction<Book[]>>;
-    books: QueryResult<Book>;
+    books: Book[];
 } ) => {
     const pathname = usePathname();
     const searchParams = useSearchParams();
@@ -43,11 +43,11 @@ export const Pagination = ( {
         if ( direction === 'left' ) {
             const offset1 = ( Number( pageNumber ) * 10 ) - 10;
             const offset2 = Number( pageNumber ) * 10;
-            setCurrentBooks( books.rows.slice( offset1, offset2 ) )
+            setCurrentBooks( books.slice( offset1, offset2 ) )
         } else {
             const offset1 = ( Number( pageNumber ) - 1 ) * 10;
             const offset2 = Number( pageNumber ) * 10;
-            setCurrentBooks( books.rows.slice( offset1, offset2 ) );
+            setCurrentBooks( books.slice( offset1, offset2 ) );
         }
     };
 
