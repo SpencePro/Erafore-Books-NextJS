@@ -31,7 +31,11 @@ export const Pagination = ( {
     const createPageURL = (pageNumber: number | string) => {
         const params = new URLSearchParams(searchParams || '');
         params.set('page', pageNumber.toString());
+        const currentUrl = window.location.href;
         if ( pageNumber === 1 ) {
+            if ( currentUrl.includes( 'world' ) ) {
+                return `${ pathname }?world=1`
+            }
             return `${ pathname }`;
         }
         return `${pathname}?${params.toString()}`;
@@ -52,7 +56,7 @@ export const Pagination = ( {
 
     useEffect( () => {
         handlePage( currentPage, 'left' );
-    }, [ currentPage ] );
+    }, [ currentPage, books ] );
 
     const PaginationArrow = ({
         direction

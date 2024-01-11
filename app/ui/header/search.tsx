@@ -86,7 +86,7 @@ export const Search = ( { books }: Props  ) => {
                                 )
                                 , style: {
                                     backgroundColor: 'whitesmoke',
-                                    width: '12rem'
+                                    width: '16rem'
                                 }
                             } }
                         />

@@ -14,7 +14,8 @@ import {
 } from "@mui/material";
 
 // Utils
-import { usePathname } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
+import { useRouter } from "next/router";
 import Link from "next/link";
 
 // Types
@@ -42,6 +43,8 @@ export const Filters = ( {
     , currentBooks
 }: Props ) => {
     const pathname = usePathname();
+    const searchParams = useSearchParams();
+    // const router = useRouter();
 
     const [ selectedSeries, setSelectedSeries ] = useState<number>( 0 );
     const [ selectedWorld, setSelectedWorld ] = useState<number>( 0 );
@@ -56,7 +59,8 @@ export const Filters = ( {
         setSelectedWorld( Number( value ) );
     };
 
-    const submitFilter = async () => {
+    const submitFilter = ( selectedSeries?: number, selectedWorld?: number ) => {
+        console.log( { selectedSeries, selectedWorld } );
         const filteredBooks = books.rows.filter( book =>
             selectedSeries && !selectedWorld
                 ? book.series === selectedSeries
@@ -66,6 +70,7 @@ export const Filters = ( {
                         ? book.world === selectedWorld && book.series === selectedSeries
                         : null
         );
+        console.log( filteredBooks.slice( 0, 10 ) );
         setCurrentBooks( filteredBooks.slice( 0, 10 ) );
         setBooksCount( filteredBooks.length );
         setFilterActive( true ); 
@@ -91,6 +96,24 @@ export const Filters = ( {
             }
         }
     }, [ currentBooks ] );
+
+    useEffect( () => {
+        console.log( 'running' );        
+        const searchTerms = window.location.href.includes( '?' ) && window.location.href.split( '?' )[ 1 ].split( '=' );
+        console.log( { searchTerms } );
+        if ( searchTerms ) {
+            const searchType = searchTerms[ 0 ];
+            const searchNum = Number( searchTerms[ 1 ] );
+
+            if ( searchType === 'series' ) {
+                setSelectedSeries( searchNum );
+                submitFilter( searchNum, 0 );
+            } else if ( searchType === 'world' ) {
+                setSelectedWorld( searchNum );
+                submitFilter( 0, searchNum );
+            }
+        }
+    }, [ pathname ] );
 
     return (
         <Grid
@@ -167,10 +190,10 @@ export const Filters = ( {
                     </Select>
                 </Grid>
                 <Grid item>
-                    <Link href={ `${ pathname }` }>
+                    <Link href={ `/books/?${ selectedSeries > 0 ? `series=${ selectedSeries }` : '' }${ selectedSeries && selectedWorld ? '&' : '' }${ selectedWorld > 0 ? `world=${ selectedWorld }` : '' }` }>
                         <Button
                             variant='outlined'
-                            onClick={ submitFilter }
+                            onClick={ () => submitFilter( selectedSeries, selectedWorld ) }
                             disabled={ !selectedSeries && !selectedWorld }
                             style={{
                                 height: '2rem'

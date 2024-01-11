@@ -33,7 +33,6 @@ export default async function Page ( { params }: { params: { id: string } } ) {
     const series = await fetchSeries();
 
     const bookInfo = await fetchSingleBookById( id );
-    console.log( {bookInfo} );
     const book = bookInfo.rows[ 0 ];
 
     return (
