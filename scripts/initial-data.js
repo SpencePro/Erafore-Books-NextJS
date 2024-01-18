@@ -9,7 +9,7 @@ const books = [
         amazonLink: "https://www.amazon.com/gp/product/B01N13Q2BD",
         publishDate: "1/27/2017",
         synopsis: "The world of Erafore is one full of magic and mystery. Heroes battle dragons, mages confront demons, and the gods watch over it all. Yet among these incredible beings, a single creature is born with the power to rewrite the destiny of the land. Taken in as a pet by the princess of the Kingdom of Varia, a mere Ooze will rise to stand in the tide of fate and defend the ones he loves from an encroaching void. But can a monster ever truly become a man?",
-        onSale: true,
+        onSale: false,
         audioBook: true
     },
     {
@@ -372,7 +372,7 @@ const books = [
         world: 1,
         amazonLink: "https://www.amazon.com/dp/B09NMSZQ8K",
         publishDate: "12/15/2021",
-        synopsis: "Having escaped the Aether with Dora and Gaelin, Jelly is relieved, and eager to return to Orria and reunite with his beloved princess. However, that is easier said than done, and after drifting for several days across the ocean on an iceberg, Jelly and his friends find themselves in Distant Qwan, an exotic land of ancient magic and tradition.\nUnaware that their presence has been noticed by their enemies, Jelly, Dora, and Gaelin find themselves called by Fate into a series of conflicts that will see them drawn towards the legendary Jade Palace, where numerous evils lurk and wait to strike, sending the country into chaos and madness.\nThe Void is calling. Are Nia\ufffdE\ufffd\ufffdEs Chosen Ones ready to face their destiny?",
+        synopsis: "Having escaped the Aether with Dora and Gaelin, Jelly is relieved, and eager to return to Orria and reunite with his beloved princess. However, that is easier said than done, and after drifting for several days across the ocean on an iceberg, Jelly and his friends find themselves in Distant Qwan, an exotic land of ancient magic and tradition.\nUnaware that their presence has been noticed by their enemies, Jelly, Dora, and Gaelin find themselves called by Fate into a series of conflicts that will see them drawn towards the legendary Jade Palace, where numerous evils lurk and wait to strike, sending the country into chaos and madness.\nThe Void is calling. Are Nia's Chosen Ones ready to face their destiny?",
         onSale: false,
         audioBook: false
     },

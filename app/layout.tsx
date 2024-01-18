@@ -31,6 +31,7 @@ export default function RootLayout({
           , flexDirection: 'column'
           , minHeight: '100vh'
           , justifyContent: 'space-between'
+          , width: 'fit-content'
         }}
       >
         <Header/>

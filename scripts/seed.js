@@ -107,34 +107,24 @@ async function seedWorlds( client ) {
     }
 }
 
-async function updateBookData( client ) {
-  const newBook = {
-      id: 28,
-      title: "A Tree in the Clouds (Green Skies Book 1)",
-      coverArtist: "@Sacred_templar",
-      coverImage: "GreenSkyATreeInTheClouds(Book1)",
-      series: 7,
-      world: 4,
-      amazonLink: "https://www.amazon.com/dp/B09HYTWNMH",
-      publishDate: "10/8/2021",
-      synopsis: "A life of freedom and adventure! That\'s all Floin of the Squirrel Tribe has ever wanted. Traveling across the magical land of Flores in his flying treehouse, he has spent his days in quiet and peace. His solitude is broken, however, when he ends up rescuing Ruvia, a young lady of the Squirrel Tribe, from mysterious Rat Tribe assassins. Caught up in events he doesn\'t understand, Floin must decide if he will abandon an innocent person to a dark fate and resume his ordinary life, or help her by returning to a life he thought he\'d left behind.",
-      onSale: false,
-      audioBook: false
-  };
-  try {
-    const updatedBook = await client.sql`
-      INSERT INTO books (id, title, cover_artist, cover_image, series, world, amazon_link, publish_date, synopsis, on_sale, audio_book)
-      VALUES (${newBook.id}, ${newBook.title}, ${newBook.coverArtist}, ${newBook.coverImage}, ${newBook.series}, ${newBook.world}, ${newBook.amazonLink}, ${newBook.publishDate}, ${newBook.synopsis}, ${newBook.onSale}, ${newBook.audioBook})
-      ON CONFLICT (id) DO UPDATE SET title=${newBook.title}, cover_artist=${newBook.coverArtist}, cover_image=${newBook.coverImage}, series=${newBook.series}, world=${newBook.world}, amazon_link=${newBook.amazonLink}, publish_date=${newBook.publishDate}, synopsis=${newBook.synopsis}, on_sale=${newBook.onSale}, audio_book=${newBook.audioBook}
-    `;
-    return {
-      books: updatedBook
-    }
-  } catch ( e ) {
-      console.error( e );
-      throw e;
-  }
-}
+// async function updateBookData( client ) {
+//   try {
+//     const updatedBooks = await Promise.all(
+//       books?.map( ( book ) => client.sql`
+//           INSERT INTO books (id, title, cover_artist, cover_image, series, world, amazon_link, publish_date, synopsis, on_sale, audio_book)
+//           VALUES (${book.id}, ${book.title}, ${book.coverArtist}, ${book.coverImage}, ${book.series}, ${book.world}, ${book.amazonLink}, ${book.publishDate}, ${book.synopsis}, ${book.onSale}, ${book.audioBook})
+//           ON CONFLICT (id) DO UPDATE SET title=${book.title}, cover_artist=${book.coverArtist}, cover_image=${book.coverImage}, series=${book.series}, world=${book.world}, amazon_link=${book.amazonLink}, publish_date=${book.publishDate}, synopsis=${book.synopsis}, on_sale=${book.onSale}, audio_book=${book.audioBook}
+//       `)
+//     );
+//     console.log( 'updating books' );
+//     return {
+//       books: updatedBooks
+//     }
+//   } catch ( e ) {
+//       console.error( e );
+//       throw e;
+//   }
+// }
 
 async function main() {
   const client = await db.connect();

@@ -4,6 +4,7 @@ import clsx from "clsx"
 import { Slideshow } from "./slideshow";
 
 export const Welcome = () => {
+    
     const quotes = [
         '"Zane was curious as to how a blender, a dehumidifier, four computers, eleven gaming consoles and a single Nokia cellphone would possibly be able to make what Rob wanted." -Welcome to the Galactic Shoppers Network'
         , '"Forget video games and the internet, buddy, junk food is what I miss the most about the apocalypse." -Jake Trevors (After School Fantasy)'

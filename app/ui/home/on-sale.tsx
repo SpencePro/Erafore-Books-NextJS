@@ -20,52 +20,59 @@ import bgImg from '../../../public/home/manuscript-3914930_1920.jpg';
 
 export const OnSale = async () => {
     const onSaleBook = await fetchOnSaleBook();
-    return (
-        <Grid
-            container
-            style={ BackgroundImageStyle( bgImg.src ) }
-        >
+
+    if ( onSaleBook.rowCount ) {
+        return (
             <Grid
                 container
-                flexDirection='column'
-                textAlign='center'
-                justifyContent='center'
+                style={ BackgroundImageStyle( bgImg.src ) }
             >
-                <Grid item>
-                    <Typography variant="h5">
-                        On Sale Now
-                    </Typography>
-                </Grid>
                 <Grid
                     container
+                    flexDirection='column'
+                    textAlign='center'
                     justifyContent='center'
                 >
+                    <Grid item>
+                        <Typography variant="h5">
+                            On Sale Now
+                        </Typography>
+                    </Grid>
                     <Grid
-                        item
-                        width='fit-content'
-                        sx={{
-                            border: '3px solid white'
-                        }}
+                        container
+                        justifyContent='center'
                     >
-                        <Link href={ `/books/${ onSaleBook.rows[ 0 ].id }` }>
-                            <Image
-                                src={ `/books/${ onSaleBook.rows[ 0 ].cover_image }.jpg` }
-                                height={ 200 }
-                                width={ 200 }
-                                alt={ `Cover image of ${ onSaleBook.rows[ 0 ].title }`}
-                            />
-                        </Link> 
+                        <Grid
+                            item
+                            width='fit-content'
+                            sx={{
+                                border: '3px solid white'
+                            }}
+                        >
+                            <Link href={ `/books/${ onSaleBook.rows[ 0 ].id }` }>
+                                <Image
+                                    src={ `/books/${ onSaleBook.rows[ 0 ].cover_image }.jpg` }
+                                    height={ 200 }
+                                    width={ 200 }
+                                    alt={ `Cover image of ${ onSaleBook.rows[ 0 ].title }`}
+                                />
+                            </Link> 
+                        </Grid>
+                    </Grid>
+                    <Grid item>
+                    <Typography
+                        variant='body1'
+                        fontWeight='bold'
+                    >
+                            { onSaleBook.rows[ 0 ].title }
+                        </Typography>
                     </Grid>
                 </Grid>
-                <Grid item>
-                <Typography
-                    variant='body1'
-                    fontWeight='bold'
-                >
-                        { onSaleBook.rows[ 0 ].title }
-                    </Typography>
-                </Grid>
             </Grid>
-        </Grid>
-    );
+        );
+    } else {
+        return (
+            <></>
+        )
+    }
 };
